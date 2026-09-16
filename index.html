@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shanmuga Priya A — AWS DevOps Engineer</title>
+<meta name="description" content="Senior DevOps engineer with 12+ years in IT and 4+ years building AWS cloud infrastructure, Docker containerization, Python automation and CI/CD pipelines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF6F7;
+    --ink:#400F24;
+    --ink-soft:#6E3449;
+    --rose:#A82F52;
+    --rose-deep:#7A1F3D;
+    --petal:#F4D7DE;
+    --petal-soft:#FBE9ED;
+    --mauve:#9B6478;
+    --line:#EBC9D3;
+    --white:#FFFFFF;
+
+    --display:"Fraunces","Iowan Old Style",Georgia,serif;
+    --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+
+    --measure:64ch;
+    --gutter:clamp(1.25rem,5vw,4.5rem);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:clamp(1rem,.96rem + .2vw,1.075rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* soft petal wash, kept to the top edge only */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0 0 auto 0;
+    height:70vh;
+    background:
+      radial-gradient(60% 55% at 78% 0%, rgba(244,215,222,.85), transparent 70%),
+      radial-gradient(45% 45% at 8% 6%, rgba(251,233,237,.9), transparent 72%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    width:min(1080px,100%);
+    margin-inline:auto;
+    padding-inline:var(--gutter);
+  }
+
+  a{color:var(--rose);text-decoration-thickness:1px;text-underline-offset:3px}
+  a:hover{color:var(--rose-deep)}
+  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:2px}
+
+  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;margin:0}
+
+  /* ── Header ─────────────────────────────── */
+  header{padding-block:clamp(3.5rem,9vw,6.5rem) clamp(2rem,4vw,3rem)}
+
+  .name{
+    font-size:clamp(3rem,10.5vw,6.5rem);
+    line-height:.92;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .name span{display:block}
+  .name .given{color:var(--rose-deep)}
+
+  .role{
+    margin-top:1.4rem;
+    font-family:var(--display);
+    font-size:clamp(1.15rem,2.4vw,1.5rem);
+    font-weight:400;
+    font-style:italic;
+    color:var(--ink-soft);
+    max-width:32ch;
+    line-height:1.35;
+  }
+
+  .contact{
+    margin-top:2rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem .75rem;
+    list-style:none;
+    padding:0;
+    font-size:.95rem;
+  }
+  .contact li{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:.4rem 1rem;
+    color:var(--ink-soft);
+  }
+  .contact a{text-decoration:none}
+  .contact a:hover{text-decoration:underline}
+
+  /* ── Pipeline hero ──────────────────────── */
+  .pipeline{
+    margin-top:clamp(3rem,7vw,4.5rem);
+    border-top:1px solid var(--line);
+    padding-top:2.25rem;
+  }
+  .pipeline-lede{
+    font-family:var(--display);
+    font-size:1.05rem;
+    color:var(--mauve);
+    margin:0 0 1.75rem;
+  }
+  .stages{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:.75rem;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .stage{position:relative;padding-top:1.9rem}
+  .stage::before{ /* the rail */
+    content:"";
+    position:absolute;
+    top:.55rem;left:0;right:0;
+    height:2px;
+    background:var(--petal);
+    transform:scaleX(0);
+    transform-origin:left;
+    animation:rail .5s cubic-bezier(.4,0,.2,1) forwards;
+    animation-delay:calc(var(--i) * .13s);
+  }
+  .stage::after{ /* the node */
+    content:"";
+    position:absolute;
+    top:.05rem;left:0;
+    width:1.05rem;height:1.05rem;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--rose);
+    opacity:0;
+    animation:node .4s ease forwards;
+    animation-delay:calc(var(--i) * .13s + .1s);
+  }
+  .stage:last-child::after{background:var(--rose)}
+  .stage h3{
+    font-size:1.05rem;
+    font-weight:600;
+    margin-bottom:.35rem;
+  }
+  .stage p{
+    margin:0;
+    font-size:.85rem;
+    line-height:1.5;
+    color:var(--mauve);
+  }
+  @keyframes rail{to{transform:scaleX(1)}}
+  @keyframes node{to{opacity:1}}
+
+  /* ── Sections ───────────────────────────── */
+  section{padding-block:clamp(3rem,7vw,5rem)}
+  section + section{border-top:1px solid var(--line)}
+
+  .section-head{
+    font-size:clamp(1.6rem,3.4vw,2.2rem);
+    margin-bottom:2rem;
+    color:var(--rose-deep);
+  }
+
+  .summary p{
+    max-width:var(--measure);
+    margin:0 0 1.15rem;
+    font-size:1.1rem;
+  }
+  .summary p:last-child{margin-bottom:0}
+
+  /* ── Skills ─────────────────────────────── */
+  .skills{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(275px,1fr));
+    gap:2rem 2.5rem;
+  }
+  .skill-group h3{
+    font-size:1.1rem;
+    color:var(--ink);
+    padding-bottom:.6rem;
+    border-bottom:2px solid var(--petal);
+    margin-bottom:1rem;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:0;padding:0}
+  .tags li{
+    font-size:.84rem;
+    line-height:1.4;
+    color:var(--ink-soft);
+    background:var(--petal-soft);
+    border:1px solid var(--line);
+    padding:.28rem .7rem;
+    border-radius:4px;
+  }
+
+  /* ── Experience timeline ────────────────── */
+  .roles{list-style:none;margin:0;padding:0}
+  .role-item{
+    position:relative;
+    padding-left:2.25rem;
+    padding-bottom:3rem;
+  }
+  .role-item:last-child{padding-bottom:0}
+  .role-item::before{ /* connector */
+    content:"";
+    position:absolute;
+    left:5px;top:1.5rem;bottom:0;
+    width:1px;
+    background:var(--line);
+  }
+  .role-item:last-child::before{display:none}
+  .role-item::after{ /* marker */
+    content:"";
+    position:absolute;
+    left:0;top:.55rem;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--rose);
+  }
+  .role-item + .role-item::after{background:var(--bg);border:2px solid var(--mauve)}
+
+  .role-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:.35rem 1.5rem;
+    margin-bottom:1rem;
+  }
+  .role-title{font-size:1.35rem}
+  .role-title .company{color:var(--rose)}
+  .dates{
+    font-size:.9rem;
+    color:var(--mauve);
+    white-space:nowrap;
+  }
+  .role-item ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    max-width:var(--measure);
+  }
+  .role-item ul li{
+    position:relative;
+    padding-left:1.1rem;
+    margin-bottom:.6rem;
+    color:var(--ink-soft);
+  }
+  .role-item ul li::before{
+    content:"";
+    position:absolute;
+    left:0;top:.72em;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--petal);
+    box-shadow:0 0 0 1px var(--line);
+  }
+
+  /* ── Two-up credentials ─────────────────── */
+  .credentials{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:2rem 3rem;
+  }
+  .cred h3{font-size:1.1rem;margin-bottom:.75rem}
+  .cred p{margin:0 0 .6rem;color:var(--ink-soft);max-width:48ch}
+  .cred p:last-child{margin-bottom:0}
+  .cred .detail{font-size:.9rem;color:var(--mauve)}
+
+  /* ── Footer ─────────────────────────────── */
+  footer{
+    background:var(--rose-deep);
+    color:var(--petal);
+    margin-top:clamp(3rem,7vw,5rem);
+    padding-block:clamp(3rem,7vw,4.5rem);
+  }
+  footer h2{
+    color:var(--white);
+    font-size:clamp(1.8rem,4vw,2.6rem);
+    max-width:20ch;
+  }
+  footer p{
+    max-width:46ch;
+    margin:1rem 0 2rem;
+    color:rgba(244,215,222,.85);
+  }
+  .footer-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem 1rem;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .footer-links a{
+    display:inline-block;
+    color:var(--rose-deep);
+    background:var(--petal);
+    text-decoration:none;
+    font-weight:600;
+    padding:.6rem 1.4rem;
+    border-radius:999px;
+    transition:background .15s ease;
+  }
+  .footer-links a:hover{background:var(--white);color:var(--rose-deep)}
+  .footer-links a.ghost{
+    background:transparent;
+    color:var(--petal);
+    border:1px solid rgba(244,215,222,.45);
+  }
+  .footer-links a.ghost:hover{background:rgba(244,215,222,.12);color:var(--white)}
+  .colophon{
+    margin-top:2.5rem;
+    padding-top:1.5rem;
+    border-top:1px solid rgba(244,215,222,.22);
+    font-size:.85rem;
+    color:rgba(244,215,222,.7);
+  }
+
+  /* ── Responsive ─────────────────────────── */
+  @media (max-width:820px){
+    .stages{grid-template-columns:repeat(2,1fr);gap:1.5rem 1rem}
+  }
+  @media (max-width:430px){
+    .stages{grid-template-columns:1fr}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation-duration:.001ms !important;animation-delay:0ms !important;transition-duration:.001ms !important}
+    .stage::before{transform:scaleX(1)}
+    .stage::after{opacity:1}
+  }
+
+  @media print{
+    body::before,footer{background:none}
+    footer,footer h2{color:var(--ink)}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1 class="name">
+    <span class="given">Shanmuga</span>
+    <span>Priya A</span>
+  </h1>
+
+  <p class="role">AWS DevOps engineer building cloud infrastructure, containers and the pipelines that ship them.</p>
+
+  <ul class="contact">
+    <li><a href="mailto:shanmugapriya230592@gmail.com">shanmugapriya230592@gmail.com</a></li>
+    <li><a href="tel:+919894566901">+91 98945 66901</a></li>
+    <li>India</li>
+    <li>12+ years in IT</li>
+  </ul>
+
+  <div class="pipeline">
+    <p class="pipeline-lede">The work, end to end</p>
+    <ol class="stages">
+      <li class="stage" style="--i:0">
+        <h3>Plan</h3>
+        <p>Terraform modules, remote state, IAM and VPC design</p>
+      </li>
+      <li class="stage" style="--i:1">
+        <h3>Build</h3>
+        <p>Jenkins jobs driven from GitHub and GitLab branches</p>
+      </li>
+      <li class="stage" style="--i:2">
+        <h3>Containerize</h3>
+        <p>Dockerfiles and images published to a Harbor registry</p>
+      </li>
+      <li class="stage" style="--i:3">
+        <h3>Deploy</h3>
+        <p>EKS rollouts through Argo CD, blue-green when it counts</p>
+      </li>
+      <li class="stage" style="--i:4">
+        <h3>Watch</h3>
+        <p>CloudWatch, Prometheus, Grafana and Alertmanager</p>
+      </li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="summary" id="about">
+    <h2 class="section-head">About</h2>
+    <p>Twelve years in IT, the last four spent building and operating AWS cloud infrastructure: Docker-based containerization, Python and shell automation, and CI/CD pipelines across Jenkins, GitHub and GitLab.</p>
+    <p>Day to day that means Terraform-driven infrastructure as code, Kubernetes and EKS deployments, and build-deploy-monitor automation that runs without someone watching it. Underneath sits eight years of quality engineering — test automation, API testing, and the habit of coordinating stakeholders and mentoring a team through Agile delivery.</p>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-head">What I work with</h2>
+    <div class="skills">
+
+      <div class="skill-group">
+        <h3>Cloud infrastructure</h3>
+        <ul class="tags">
+          <li>AWS</li><li>EC2</li><li>S3</li><li>IAM</li><li>RDS</li><li>VPC</li>
+          <li>CloudFront</li><li>Route 53</li><li>ALB</li><li>Auto Scaling</li>
+          <li>CloudWatch</li><li>EKS</li><li>Azure (exposure)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Containers &amp; orchestration</h3>
+        <ul class="tags">
+          <li>Docker</li><li>Dockerfile</li><li>Image builds</li>
+          <li>Harbor registry</li><li>Kubernetes</li><li>EKS</li><li>Ingress</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>CI/CD &amp; infrastructure as code</h3>
+        <ul class="tags">
+          <li>Jenkins</li><li>GitHub</li><li>GitLab</li><li>CI/CD pipelines</li>
+          <li>Terraform</li><li>Ansible</li><li>Argo CD</li><li>Blue-green deployments</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Automation &amp; scripting</h3>
+        <ul class="tags">
+          <li>Python</li><li>Shell scripting</li><li>Postman API automation</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>Monitoring &amp; quality</h3>
+        <ul class="tags">
+          <li>Prometheus</li><li>Grafana</li><li>Alertmanager</li><li>CloudWatch</li>
+          <li>Selenium</li><li>Functional testing</li><li>Regression</li>
+          <li>Smoke</li><li>UAT</li><li>JIRA</li><li>HP ALM</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3>AI-assisted workflows</h3>
+        <ul class="tags">
+          <li>ChatGPT</li><li>Claude</li><li>Scripting support</li>
+          <li>Troubleshooting</li><li>Documentation</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-head">Experience</h2>
+    <ol class="roles">
+
+      <li class="role-item">
+        <div class="role-head">
+          <h3 class="role-title">Senior DevOps Engineer, <span class="company">Beyondsoft</span></h3>
+          <span class="dates">Feb 2024 — Present</span>
+        </div>
+        <ul>
+          <li>Build and support AWS cloud environments across EC2, S3, IAM, Security Groups, Auto Scaling, RDS, CloudFront and Route 53.</li>
+          <li>Provision infrastructure with Terraform and drive CI/CD automation for infrastructure, build and deployment tasks through Jenkins.</li>
+          <li>Create and manage IAM users, groups, roles and policies, and configure Security Group inbound and outbound rules.</li>
+          <li>Run GitHub source control feeding the pipelines, including branching, merging and rebase work.</li>
+          <li>Write automation scripts for build, deployment, maintenance and operational tasks using Terraform, Jenkins and shell.</li>
+        </ul>
+      </li>
+
+      <li class="role-item">
+        <div class="role-head">
+          <h3 class="role-title">Senior Associate, <span class="company">Cognizant</span></h3>
+          <span class="dates">May 2021 — Feb 2024</span>
+        </div>
+        <ul>
+          <li>Configured CI/CD pipelines and environments for web applications, wiring GitHub and GitLab workflows into Jenkins.</li>
+          <li>Integrated Python scripts into pipelines to automate builds, tests and deployments, and developed backup automation.</li>
+          <li>Built and maintained Docker images in the Harbor registry; supported EKS cluster upgrades and container-based deployments.</li>
+          <li>Worked across AWS, Azure, EC2, ECR, S3, Kubernetes and Ingress for application deployment and traffic management.</li>
+          <li>Configured Terraform modules, remote state and looping; supported Kubernetes and Argo CD deployments with blue-green patterns.</li>
+          <li>Handled F5 and ALB load balancers, Ansible configuration management, patching, and server build and decommission activities.</li>
+          <li>Supported monitoring through CloudWatch, Prometheus, Grafana and Alertmanager, and documented SOPs in Confluence.</li>
+        </ul>
+      </li>
+
+      <li class="role-item">
+        <div class="role-head">
+          <h3 class="role-title">Senior Test Engineer, <span class="company">Mphasis</span></h3>
+          <span class="dates">Aug 2014 — May 2021</span>
+        </div>
+        <ul>
+          <li>Managed end-to-end testing: requirement analysis, estimation, test case preparation and execution.</li>
+          <li>Ran functional, regression and smoke testing across TEST and UAT environments.</li>
+          <li>Prepared and executed automated API scripts in Postman, and used Selenium to cut regression execution effort.</li>
+          <li>Coordinated QA, development and integration teams to resolve issues, managing defects through closure in JIRA.</li>
+          <li>Prepared release dashboards and status reporting for clients and offshore teams.</li>
+          <li>Coached and mentored team members and represented testing status in client interactions.</li>
+        </ul>
+      </li>
+
+    </ol>
+  </section>
+
+  <section id="credentials">
+    <h2 class="section-head">Education &amp; domain</h2>
+    <div class="credentials">
+      <div class="cred">
+        <h3>Education</h3>
+        <p>Bachelor of Engineering, Electronics and Communication</p>
+        <p class="detail">Cauvery College of Engineering and Technology, Trichy — 2013</p>
+      </div>
+      <div class="cred">
+        <h3>Certification</h3>
+        <p>Microsoft AI-900, Azure AI Fundamentals</p>
+      </div>
+      <div class="cred">
+        <h3>Domain experience</h3>
+        <p>Insurance property &amp; casualty, and banking.</p>
+        <p class="detail">Guidewire ClaimCenter and Policy Administration integrations, including Choice, PEGA, Poladmin and related systems.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Looking for someone to own your pipelines?</h2>
+    <p>Open to senior DevOps and cloud infrastructure roles. The quickest way to reach me is email.</p>
+    <ul class="footer-links">
+      <li><a href="mailto:shanmugapriya230592@gmail.com">Email me</a></li>
+      <li><a class="ghost" href="tel:+919894566901">+91 98945 66901</a></li>
+    </ul>
+    <p class="colophon">Shanmuga Priya A — AWS DevOps Engineer, India</p>
+  </div>
+</footer>
+
+</body>
+</html>
